@@ -7,7 +7,7 @@
     <groupId>com.practice</groupId>
     <artifactId>practice-java-servlet</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>practice-java-servlet</name>
+    <name>website</name>
     <packaging>war</packaging>
 
     <properties>
@@ -44,6 +44,32 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Logback -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.0</version>
+        </dependency>
 
     </dependencies>
 
