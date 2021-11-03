@@ -52,7 +52,6 @@ public class NaverController extends HttpServlet {
         System.out.println("<response result>");
         System.out.println(responseBody);
 
-
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> map = objectMapper.readValue(responseBody.toString(), Map.class);
         Map<String, Object> respMap = (Map<String, Object>) map.get("response");
@@ -63,6 +62,8 @@ public class NaverController extends HttpServlet {
         HttpSession session = request.getSession(true);
         if (session.getAttribute("userid") == null) {
             session.setAttribute("userid", userid);
+            session.setAttribute("oauth", "naver");
+            session.setAttribute("accessToken", access_token);
         }
         System.out.println("userid : " + userid + ",  session : " + String.valueOf(session.getAttribute("userid")));
     }
@@ -74,7 +75,6 @@ public class NaverController extends HttpServlet {
             for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
                 con.setRequestProperty(header.getKey(), header.getValue());
             }
-
 
             int responseCode = con.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
@@ -89,7 +89,6 @@ public class NaverController extends HttpServlet {
         }
     }
 
-
     private static HttpURLConnection connect(String apiUrl){
         try {
             URL url = new URL(apiUrl);
@@ -101,20 +100,16 @@ public class NaverController extends HttpServlet {
         }
     }
 
-
     private static String readBody(InputStream body){
         InputStreamReader streamReader = new InputStreamReader(body);
 
-
         try (BufferedReader lineReader = new BufferedReader(streamReader)) {
             StringBuilder responseBody = new StringBuilder();
-
 
             String line;
             while ((line = lineReader.readLine()) != null) {
                 responseBody.append(line);
             }
-
 
             return responseBody.toString();
         } catch (IOException e) {

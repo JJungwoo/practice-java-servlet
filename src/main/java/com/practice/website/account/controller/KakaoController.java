@@ -31,7 +31,7 @@ public class KakaoController extends HttpServlet {
         out.println("<h1>kakao login</h1>");
         out.println("</body></html>");
         String accessToken = kakaoAuthExcute(request, response);
-        getIdkakaoAuthExcute(request, response, accessToken);
+        getIdKakaoAuthExcute(request, response, accessToken);
         response.sendRedirect("/");
     }
 
@@ -41,7 +41,7 @@ public class KakaoController extends HttpServlet {
      *         -H "Authorization: Bearer {ACCESS_TOKEN}" \
      *         --data-urlencode 'property_keys=["kakao_account.email"]'
      */
-    public void getIdkakaoAuthExcute(HttpServletRequest request, HttpServletResponse response, String access_token) throws ServletException, IOException {
+    public void getIdKakaoAuthExcute(HttpServletRequest request, HttpServletResponse response, String access_token) throws ServletException, IOException {
 
         System.out.println("getIdkakaoAuthExcute");
 
@@ -81,6 +81,8 @@ public class KakaoController extends HttpServlet {
         HttpSession session = request.getSession(true);
         if (session.getAttribute("userid") == null) {
             session.setAttribute("userid", userid);
+            session.setAttribute("oauth", "kakao");
+            session.setAttribute("accessToken", access_token);
         }
         System.out.println("userid : " + userid + ",  session : " + String.valueOf(session.getAttribute("userid")));
     }
