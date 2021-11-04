@@ -102,12 +102,20 @@ ul {
 }
 
 .main-logo-li {
-    margin: 15px 15px 0px 0px;
+    /*margin: 15px 15px 0px 0px;*/
+    margin: 0px 0px;
 }
 
 li {
     display: list-item;
     text-align: -webkit-match-parent;
+}
+
+.main-text-logo-a {
+    width: 151px;
+    height: 29px;
+    text-decoration:none;
+    color: crimson;
 }
 
 .main-logo-svg {
@@ -312,11 +320,11 @@ a {
     background-color: transparent;
 }
 
-a:-webkit-any-link {
-    color: -webkit-link;
-    cursor: pointer;
-    text-decoration: underline;
-}
+/*a:-webkit-any-link {*/
+/*    color: -webkit-link;*/
+/*    cursor: pointer;*/
+/*    text-decoration: underline;*/
+/*}*/
 
 .main-inner-section-divdivdiv-ul-li-div1-movie {
     position: relative;

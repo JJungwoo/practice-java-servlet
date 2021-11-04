@@ -9,13 +9,17 @@
     <link href="index.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
 <div class="main-div">
     <header class="main-header">
         <nav>
             <div class="main-nav-div">
                 <ul class="main-nav-ul">
                     <li class="main-logo-li">
-                        <svg class="main-logo-svg">MovieRating</svg>
+                        <a href="index.jsp" class="main-text-logo-a">
+                            <h1>MovieRating</h1>
+                        </a>
+<%--                        <svg class="main-logo-svg">MovieRating</svg>--%>
                     </li>
 
                     <%
@@ -31,7 +35,7 @@
                         <a href="account/login.html" class="main-signup-button">회원가입</a>
                     </li>
                     <%
-                    } else {
+                        } else {
                     %>
                     <h1><%=user%>님 환영합니다.</h1>
                     <form action="/logout" method="get">
