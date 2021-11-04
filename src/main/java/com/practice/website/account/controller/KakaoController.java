@@ -25,11 +25,6 @@ public class KakaoController extends HttpServlet {
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // http://localhost:8000/blog/user?cmd=join
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>kakao login</h1>");
-        out.println("</body></html>");
         String accessToken = kakaoAuthExcute(request, response);
         getIdKakaoAuthExcute(request, response, accessToken);
         response.sendRedirect("/");

@@ -28,12 +28,6 @@ public class NaverController extends HttpServlet {
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // http://localhost:8000/blog/user?cmd=join
-        PrintWriter out = response.getWriter();
-        System.out.println("NaverController test: " + request.getParameter("cmd"));
-        out.println("<html><body>");
-        out.println("<h1>naver login</h1>");
-        out.println("</body></html>");
         String accessToken = naverAuthExcute(request, response);
         getIdNaverAuthExcute(request, response, accessToken);
         response.sendRedirect("/");
