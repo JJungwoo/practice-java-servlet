@@ -44,7 +44,7 @@
                         if (user == null) {
                     %>
                     <li class="main-login-li">
-                        <!--                        <button class="main-login-button">로그인</button>-->
+<%--                        <button class="main-login-button" onclick="move()">로그인</button>--%>
                         <a href="account/login.html" class="main-login-button">로그인</a>
                     </li>
                     <li class="main-signup-li">
@@ -76,7 +76,6 @@
                     </div>
 
                     <div class="main-inner-section-div-movie">
-
                         <div class="main-inner-section-divdiv-movie">
                             <div class="main-inner-section-divdivdiv-movie">
                                 <div class="main-inner-section-divdivdivdiv-movie">

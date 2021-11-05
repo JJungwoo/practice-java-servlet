@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class DBUtil {
 
-    static final String applicationPropertiesFilePath = "src/main/webapp/resources/application.properties";
+    static final String applicationPropertiesFilePath = "src/main/resources/application.properties";
 
     public static Connection dbConnect(String path) {
 
