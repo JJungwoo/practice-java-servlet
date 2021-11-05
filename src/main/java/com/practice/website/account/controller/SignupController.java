@@ -10,11 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "LoginServlet", value = "/login")
-public class LoginController extends HttpServlet {
+@WebServlet(name = "SignupController",  value = "/signup")
+public class SignupController extends HttpServlet {
 
     private Logger logger;
     private UserService userService;
@@ -30,27 +29,20 @@ public class LoginController extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        User user = null;
+        String name = request.getParameter("name");
 
-        logger.info("request email:{}, password:{}", email, password);
+        logger.info("request {} {} {} ", email, password, name);
 
         try {
-            user = userService.findByEmail(email);
-            if (!user.getPassword().equals(password)) {
-                request.setAttribute("message", "패스워드가 잘못되었습니다.");
-                return;
-            }
-
-            HttpSession session = request.getSession(true);
-            if (session.getAttribute("userid") == null) {
-                session.setAttribute("userid", user.getEmail());
-                session.setAttribute("oauth", "self");
-                session.setAttribute("accessToken", "1");
-            }
-
+            userService.insert(User.builder()
+                    .email(email)
+                    .password(password)
+                    .name(name)
+                    .build());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         response.sendRedirect("/");
     }
 
