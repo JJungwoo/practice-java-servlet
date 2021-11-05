@@ -49,7 +49,7 @@
                     </li>
                     <li class="main-signup-li">
                         <!--                        <button class="main-signup-button">회원가입</button>-->
-                        <a href="account/login.html" class="main-signup-button">회원가입</a>
+                        <a href="account/signup.html" class="main-signup-button">회원가입</a>
                     </li>
                     <%
                         } else {
