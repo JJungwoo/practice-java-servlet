@@ -1,0 +1,37 @@
+
+section {
+    display: block;
+}
+
+div {
+    display: block;
+}
+
+@media (min-width: 719px) {
+    .contents-div {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 0px);
+    }
+}
+
+@media (min-width: 719px) {
+    .contents-background {
+        flex: 1 1 0%;
+    }
+
+}
+
+.contents-background {
+    background: rgb(248, 248, 248);
+}
+
+@media (min-width: 719px) {
+    .contents-section {
+        border-bottom: 1px solid rgb(227, 227, 227);
+    }
+}
+.contents-section {
+    background: rgb(255, 255, 255);
+}
+
