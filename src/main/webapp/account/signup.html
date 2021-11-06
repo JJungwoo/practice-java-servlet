@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko-KR">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="login.css" rel="stylesheet" type="text/css">
     <script>
         function send_request() {
             if(document.signupForm.name.value === ""){
@@ -31,17 +32,79 @@
 
             document.signupForm.action = "/signup";
 
-            document.f.submit();
+            document.signupForm.submit();
         }
     </script>
 </head>
 <body>
-<h1>회원가입</h1>
-<form name="signupForm" method="post">
-    이름 : <input type="text" name="name"> <br>
-    이메일 : <input type="email" name="email"><br>
-    패스워드 : <input type="password" name="password"><br>
-    <input type="submit" value="회원가입" onclick="send_request()">
-</form>
+
+<div class="login-dev">
+    <header class="login-header">
+        <div class="main-nav-div">
+            <ul class="main-nav-ul">
+                <a class="main-text-logo-a">
+                    <h1>MovieRating</h1>
+                </a>
+            </ul>
+        </div>
+    </header>
+    <h2 class="login-h2">회원가입</h2>
+    <section>
+        <div>
+            <div> <!-- 아이디, 패스워드 입력 및 로그인 버튼 창 -->
+                <form action="/signup" method="post">
+                    <div class="login-formDiv">
+                        <label value="true" class="login-form-innerLabel">
+                            <input autocomplete="off" placeholder="이름" type="name" name="name" class="login-form-innerInputName" value>
+                        </label>
+                    </div>
+                    <div class="login-formDiv">
+                        <label value="true" class="login-form-innerLabel">
+                            <input autocomplete="off" placeholder="이메일" type="email" name="email" class="login-form-innerInputEmail" value>
+                        </label>
+                    </div>
+                    <div class="login-formDiv">
+                        <label value="true" class="login-form-innerLabel">
+                            <input autocomplete="off" placeholder="비밀번호" type="password" name="password" class="login-form-innerInputPassword" value>
+                        </label>
+                    </div>
+                    <button type="submit" class="login-form-innerButton" onclick="send_request()">회원가입</button>
+                </form>
+            </div>
+            <div> <!-- 패스워드 찾기 및 회원가입 -->
+                <div class="css-alreadyLoginDiv">이미 가입하셨나요?
+                    <button class="css-alreadyLoginButton" onclick="location.href='login.html'">로그인</button>
+                </div>
+            </div>
+
+            <hr class="login-interval">
+
+            <div> <!-- SNS 로그인 -->
+                <div class="login-kakao-dev" align="center">
+                    <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5ba7121063da70f1a1efd0bd8a96f162&redirect_uri=http://localhost:9999/oauth/kakao?cmd=callback"
+                       id="kakao-login-btn">
+                        <img src="../resources/images/btn_kakao.png" height="10%" width="40%"/>
+                    </a>
+                </div>
+
+                <div class="login-naver-dev" align="center">
+                    <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=drkADl0UBiEOwOJ9zmgs&redirect_uri=http://localhost:9999/oauth/naver?cmd=doCheck"
+                       id="naver-login-btn">
+                        <img src="../resources/images/btn_naver.png" height="10%" width="40%"/>
+                    </a>
+                </div>
+
+                <div class="login-google-dev" align="center">
+                    <a href="/oauth/"
+                       id="google-login-btn">
+                        <img src="../resources/images/btn_google.png" height="20%" width="40%"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
 </body>
 </html>

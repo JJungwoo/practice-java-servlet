@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko-KR">
 <head>
     <meta charset="UTF-8">
     <title>유저 로그인 메인 화면</title>
@@ -7,23 +7,37 @@
 </head>
 <body>
 <div class="login-dev">
-    <header class="login-header"></header>
+
+    <header class="login-header">
+        <div class="main-nav-div">
+            <ul class="main-nav-ul">
+                <a class="main-text-logo-a">
+                    <h1>MovieRating</h1>
+                </a>
+            </ul>
+        </div>
+    </header>
     <h2 class="login-h2">로그인</h2>
     <section>
         <div>
             <div> <!-- 아이디, 패스워드 입력 및 로그인 버튼 창 -->
                 <form action="/login" method="post">
-                    <label value="true" class="login-form-innerLabel">
-                        <input autocomplete="off" placeholder="이메일" type="email" name="email" class="login-form-innerInputEmail" value>
-                    </label>
-                    <label value="true" class="login-form-innerLabel">
-                        <input autocomplete="off" placeholder="비밀번호" type="password" name="password" class="login-form-innerInputPassword" value>
-                    </label>
+                    <div class="login-formDiv">
+                        <label value="true" class="login-form-innerLabel">
+                            <input autocomplete="off" placeholder="이메일" type="email" name="email" class="login-form-innerInputEmail" value>
+                        </label>
+                    </div>
+                    <div class="login-formDiv">
+                        <label value="true" class="login-form-innerLabel">
+                            <input autocomplete="off" placeholder="비밀번호" type="password" name="password" class="login-form-innerInputPassword" value>
+                        </label>
+                    </div>
                     <button type="submit" class="login-form-innerButton">로그인</button>
                 </form>
             </div>
             <div> <!-- 패스워드 찾기 및 회원가입 -->
 
+                <div class="css-alreadyLoginDiv">계정이 없으신가요? <button class="css-alreadyLoginButton" onclick="location.href='signup.html'">회원가입</button></div>
             </div>
 
             <hr class="login-interval">
@@ -44,7 +58,8 @@
                 </div>
 
                 <div class="login-google-dev" align="center">
-                    <a id="google-login-btn">
+                    <a href="/oauth/"
+                       id="google-login-btn">
                         <img src="../resources/images/btn_google.png" height="20%" width="40%"/>
                     </a>
                 </div>

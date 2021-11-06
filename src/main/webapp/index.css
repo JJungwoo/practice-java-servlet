@@ -1,4 +1,11 @@
 
+/* 여기어때의 '잘난체' 웹폰트 적용 */
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal; /* 텍스트를 얼마나 두껍게 표현할지를 설정함. */
+    font-style: normal;
+}
 
 div {
     display: block;

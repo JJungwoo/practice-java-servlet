@@ -7,6 +7,33 @@
     font-style: normal;
 }
 
+/* header 부분 */
+
+.main-logo-li {
+    /*margin: 15px 15px 0px 0px;*/
+    margin: 0px 0px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.main-text-logo-a {
+    width: 151px;
+    height: 29px;
+    text-decoration:none;
+    color: crimson;
+    text-align: center;
+}
+
+.main-logo-svg {
+    width: 151px;
+    height: 29px;
+}
+
+
+
 .login-h2 {
     font-size: 17px;
     letter-spacing: -0.5px;
@@ -14,6 +41,12 @@
     font-weight: 700;
     text-align: center;
     margin: 24px 0px 20px;
+
+}
+
+.login-formDiv {
+    padding: 4px 0px;
+    overflow: hidden;
 }
 
 .login-form-innerButton {
@@ -43,6 +76,39 @@
     height: 44px;
     padding: 0px 12px;
     border-radius: 6px;
+}
+
+.login-form-innerInputName {
+    background: transparent;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: -0.6px;
+    line-height: 21px;
+    width: 100%;
+    padding: 0px;
+    border: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    caret-color: rgb(255, 47, 110);
+}
+
+.css-alreadyLoginDiv {
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    line-height: 20px;
+    color: rgb(140, 140, 140);
+    text-align: center;
+    margin: 20px 0px 0px;
+}
+
+.css-alreadyLoginButton {
+    background: none;
+    padding: 0px;
+    border: none;
+    margin: 0px;
+    cursor: pointer;
+    color: rgb(255, 47, 110);
 }
 
 .login-form-innerInputEmail {
