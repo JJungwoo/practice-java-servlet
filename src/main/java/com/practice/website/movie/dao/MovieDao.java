@@ -4,6 +4,8 @@ import com.practice.website.movie.domain.Movie;
 import com.practice.website.util.DBUtil;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class MovieDao {
@@ -12,6 +14,45 @@ public class MovieDao {
 
     public MovieDao(String path) {
         this.path = path;
+    }
+
+    public List<Movie> selectAll() throws SQLException {
+        List<Movie> movieList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBUtil.dbConnect(path);
+            String sql = createQueryForSelectAll();
+            pstmt = conn.prepareStatement(sql);
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                movieList.add(Movie.builder()
+                        .id(rs.getLong("Movie_SEQ"))
+                        .title(rs.getString("title"))
+                        .openDate(rs.getDate("open_date").toLocalDate())
+                        .genre(rs.getString("genre"))
+                        .runTime(rs.getInt("run_time"))
+                        .limitedAge(rs.getInt("limited_age"))
+                        .detail(rs.getString("detail"))
+                        .posterUrl(rs.getString("poster_url"))
+                        .originName(rs.getString("origin_name"))
+                        .nation(rs.getString("nation"))
+                        .build());
+            }
+
+        } finally {
+            DBUtil.dbClose(conn, null, null);
+        }
+
+        return movieList;
+    }
+
+    private String createQueryForSelectAll() {
+        return "SELECT * FROM MOVIES";
     }
 
     public void insert(Movie movie) throws SQLException {
