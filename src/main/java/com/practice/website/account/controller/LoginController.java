@@ -46,6 +46,7 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("userid", user.getName());
                 session.setAttribute("oauth", "self");
                 session.setAttribute("accessToken", "1");
+                session.setMaxInactiveInterval(60 * 30);    // 30분
             }
 
         } catch (Exception e) {

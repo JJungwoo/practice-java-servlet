@@ -1,7 +1,6 @@
 package com.practice.website.account.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.practice.website.movie.controller.MovieController;
 import com.practice.website.util.FileIOUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -103,6 +102,7 @@ public class KakaoController extends HttpServlet {
             session.setAttribute("userid", userid);
             session.setAttribute("oauth", "kakao");
             session.setAttribute("accessToken", access_token);
+            session.setMaxInactiveInterval(60 * 30);    // 30분
         }
     }
 

@@ -3,7 +3,6 @@ package com.practice.website.account.dao;
 import com.practice.website.account.domain.User;
 import com.practice.website.util.DBUtil;
 
-import java.awt.geom.RectangularShape;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
