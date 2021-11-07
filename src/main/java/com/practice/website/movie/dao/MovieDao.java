@@ -127,6 +127,6 @@ public class MovieDao {
     }
 
     private String createQueryForFindById() {
-        return "SELECT * FROM MOVIES WHERE ID = ?";
+        return "SELECT * FROM MOVIES WHERE Movie_SEQ = ?";
     }
 }

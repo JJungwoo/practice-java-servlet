@@ -56,7 +56,8 @@ public class MovieController extends HttpServlet {
 
         request.setAttribute("movie", movie);
 
-        request.getRequestDispatcher("/").forward(request, response);
+        logger.info("GET Movie {} {}", movie.getId(), movie.getTitle());
 
+        request.getRequestDispatcher("/movieDetail.jsp").forward(request, response);
     }
 }
