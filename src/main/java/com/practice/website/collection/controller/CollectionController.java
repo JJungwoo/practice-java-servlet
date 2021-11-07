@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "CollectionController", value = "/collection")
+@WebServlet(name = "CollectionController", value = "/collection/*")
 public class CollectionController extends HttpServlet {
 
     private Logger logger;
