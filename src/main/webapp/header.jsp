@@ -51,10 +51,11 @@
                 <%
                 } else {
                 %>
-                <h1><%=user%>님 환영합니다.</h1>
-                <form action="/logout" method="get">
-                    <button type="submit">로그아웃</button>
-                </form>
+                <h2 style="color: black"><%=user%>님 환영합니다.</h2>
+
+                <li class="main-signup-li">
+                    <a href="/logout" class="main-signup-button" methods="get">로그아웃</a>
+                </li>
                 <%
                     }
                 %>
