@@ -1,9 +1,11 @@
+<%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <html>
 <head>
     <title>Title</title>
-    <link href="index.css" rel="stylesheet" type="text/css">
+    <link href="${contextPath}/index.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <header class="main-header">
@@ -11,7 +13,7 @@
         <div class="main-nav-div">
             <ul class="main-nav-ul">
                 <li class="main-logo-li">
-                    <a href="index.jsp" class="main-text-logo-a">
+                    <a href="${contextPath}/index.jsp" class="main-text-logo-a">
                         <h1>MovieRating</h1>
                     </a>
                     <%--                        <svg class="main-logo-svg">MovieRating</svg>--%>
@@ -40,11 +42,11 @@
                 %>
                 <li class="main-login-li">
                     <%--                        <button class="main-login-button" onclick="move()">로그인</button>--%>
-                    <a href="account/login.html" class="main-login-button">로그인</a>
+                    <a href="${contextPath}/account/login.html" class="main-login-button">로그인</a>
                 </li>
                 <li class="main-signup-li">
                     <!--                        <button class="main-signup-button">회원가입</button>-->
-                    <a href="account/signup.html" class="main-signup-button">회원가입</a>
+                    <a href="${contextPath}/account/signup.html" class="main-signup-button">회원가입</a>
                 </li>
                 <%
                 } else {

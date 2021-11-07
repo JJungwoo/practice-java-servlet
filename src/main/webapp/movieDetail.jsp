@@ -7,6 +7,10 @@
     <title>영화 상세정보</title>
 </head>
 <body>
+<header>
+<%@ include file="header.jsp"%>
+</header>
+<section>
 <h1 align="center">영화 상세정보</h1>
 
 <div>
@@ -49,5 +53,6 @@
 <div>
     <p><button type="button" onclick="window.history.back();">뒤로가기</button></p>
 </div>
+</section>
 </body>
 </html>
