@@ -1,7 +1,10 @@
 package com.practice.website.account.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.website.movie.controller.MovieController;
 import com.practice.website.util.FileIOUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
@@ -21,12 +24,15 @@ import java.util.Properties;
 @WebServlet(name = "NaverController", value = "/oauth/naver")
 public class NaverController extends HttpServlet {
 
-    static final private String applicationPropertiesFilePath = "src/main/resources/application.properties";
+    private static Logger logger;
+    private static final String applicationPropertiesFilePath = "src/main/resources/application.properties";
     private String naverClientId;
 
     @Override
     public void init() throws ServletException {
         super.init();
+
+        logger = LogManager.getLogger(NaverController .class);
 
         String path = getServletContext().getRealPath(".").replaceAll("\\\\", "/");
 
@@ -59,15 +65,14 @@ public class NaverController extends HttpServlet {
         requestHeaders.put("Authorization", header);
         String responseBody = get(apiURL,requestHeaders);
 
-        System.out.println("<response result>");
-        System.out.println(responseBody);
+        logger.info("user info api response {}", responseBody);
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> map = objectMapper.readValue(responseBody.toString(), Map.class);
         Map<String, Object> respMap = (Map<String, Object>) map.get("response");
-        String userid = String.valueOf(respMap.get("id"));
+        String userid = String.valueOf(respMap.get("nickname"));
 
-        System.out.println("email : " + String.valueOf(respMap.get("email")));
+        logger.info("naver oauth api response userid {} ", userid);
 
         HttpSession session = request.getSession(true);
         if (session.getAttribute("userid") == null) {
@@ -75,7 +80,6 @@ public class NaverController extends HttpServlet {
             session.setAttribute("oauth", "naver");
             session.setAttribute("accessToken", access_token);
         }
-        System.out.println("userid : " + userid + ",  session : " + String.valueOf(session.getAttribute("userid")));
     }
 
     private static String get(String apiUrl, Map<String, String> requestHeaders){
@@ -168,12 +172,12 @@ public class NaverController extends HttpServlet {
             sb.append(input);
         }
 
-        System.out.println(sb.toString());
+        logger.info("naver oauth api response {}", sb.toString());
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> map = objectMapper.readValue(sb.toString(), Map.class);
         String access_token = String.valueOf(map.get("access_token"));
-        System.out.println("access_token:"+access_token);
+        logger.info("access_token: {} ", access_token);
         return access_token;
     }
 }

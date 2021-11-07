@@ -1,7 +1,10 @@
 package com.practice.website.account.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.website.movie.controller.MovieController;
 import com.practice.website.util.FileIOUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
@@ -18,12 +21,15 @@ import java.util.Properties;
 @WebServlet(name = "KakaoController", value = "/oauth/kakao")
 public class KakaoController extends HttpServlet {
 
+    private static Logger logger;
     static final private String applicationPropertiesFilePath = "src/main/resources/application.properties";
     private String kakaoClientId;
 
     @Override
     public void init() throws ServletException {
         super.init();
+
+        logger = LogManager.getLogger(KakaoController.class);
 
         String path = getServletContext().getRealPath(".").replaceAll("\\\\", "/");
 
@@ -83,11 +89,14 @@ public class KakaoController extends HttpServlet {
             sb.append(input);
         }
 
-        System.out.println("getIdkakaoAuthExcute 결과 : " + sb.toString());
+        logger.info("getIdkakaoAuthExcute 결과 : {} ", sb.toString());
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> map = objectMapper.readValue(sb.toString(), Map.class);
-        String userid = String.valueOf(map.get("id"));
+        Map<String, Object> propertiesMap = (Map<String, Object>) map.get("properties");
+        String userid = String.valueOf(propertiesMap.get("nickname"));
+
+        logger.info("kakao oauth api response userid {} ", userid);
 
         HttpSession session = request.getSession(true);
         if (session.getAttribute("userid") == null) {
@@ -95,7 +104,6 @@ public class KakaoController extends HttpServlet {
             session.setAttribute("oauth", "kakao");
             session.setAttribute("accessToken", access_token);
         }
-        System.out.println("userid : " + userid + ",  session : " + String.valueOf(session.getAttribute("userid")));
     }
 
 
@@ -133,12 +141,12 @@ public class KakaoController extends HttpServlet {
             sb.append(input);
         }
 
-        System.out.println(sb.toString());
+        logger.info("kakao oauth api response : {} ", sb.toString());
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> map = objectMapper.readValue(sb.toString(), Map.class);
         String access_token = String.valueOf(map.get("access_token"));
-        System.out.println("access_token:"+access_token);
+        logger.info("access_token: {}", access_token);
         return access_token;
     }
 }
