@@ -1,6 +1,7 @@
 package com.practice.website.account.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.website.util.FileIOUtil;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
@@ -12,9 +13,24 @@ import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URL;
 import java.util.Map;
+import java.util.Properties;
 
 @WebServlet(name = "KakaoController", value = "/oauth/kakao")
 public class KakaoController extends HttpServlet {
+
+    static final private String applicationPropertiesFilePath = "src/main/resources/application.properties";
+    private String kakaoClientId;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+
+        String path = getServletContext().getRealPath(".").replaceAll("\\\\", "/");
+
+        Properties properties = FileIOUtil.jdbcGetPropertise(path.substring(0, path.lastIndexOf("target")) + applicationPropertiesFilePath);
+
+        kakaoClientId = properties.getProperty("kakao-client-id");
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doProcess(request, response);
@@ -90,7 +106,7 @@ public class KakaoController extends HttpServlet {
         URL url = new URL(endpoint);
 
         String bodyData="grant_type=authorization_code&";
-        bodyData += "client_id=5ba7121063da70f1a1efd0bd8a96f162&";
+        bodyData += "client_id=" + kakaoClientId + "&";
         bodyData += "redirect_uri=http://localhost:9999/oauth/kakao?cmd=callback&";
         bodyData += "code="+code;
 

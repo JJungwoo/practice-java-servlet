@@ -1,6 +1,7 @@
 package com.practice.website.account.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.website.util.FileIOUtil;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
@@ -15,9 +16,24 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 @WebServlet(name = "NaverController", value = "/oauth/naver")
 public class NaverController extends HttpServlet {
+
+    static final private String applicationPropertiesFilePath = "src/main/resources/application.properties";
+    private String naverClientId;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+
+        String path = getServletContext().getRealPath(".").replaceAll("\\\\", "/");
+
+        Properties properties = FileIOUtil.jdbcGetPropertise(path.substring(0, path.lastIndexOf("target")) + applicationPropertiesFilePath);
+
+        naverClientId = properties.getProperty("naver-client-id");
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doProcess(request, response);
@@ -126,8 +142,9 @@ public class NaverController extends HttpServlet {
         URL url = new URL(endpoint);
 
         String bodyData="grant_type=authorization_code&";
+//        bodyData += "client_id=" + naverClientId + "&";
         bodyData += "client_id=drkADl0UBiEOwOJ9zmgs&";
-        bodyData += "client_secret=9l4Kfg0Wwr&";
+
         bodyData += "code="+code;
 
         //Stream 연결
