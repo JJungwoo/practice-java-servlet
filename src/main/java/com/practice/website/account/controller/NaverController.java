@@ -142,9 +142,7 @@ public class NaverController extends HttpServlet {
         URL url = new URL(endpoint);
 
         String bodyData="grant_type=authorization_code&";
-//        bodyData += "client_id=" + naverClientId + "&";
-        bodyData += "client_id=drkADl0UBiEOwOJ9zmgs&";
-
+        bodyData += "client_id=" + naverClientId + "&";
         bodyData += "code="+code;
 
         //Stream 연결
