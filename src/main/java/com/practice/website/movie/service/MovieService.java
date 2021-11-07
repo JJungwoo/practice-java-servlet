@@ -4,15 +4,12 @@ import com.practice.website.movie.dao.MovieDao;
 import com.practice.website.movie.domain.Movie;
 import com.practice.website.movie.exception.NotFoundMovieException;
 
-import java.sql.SQLException;
 
 public class MovieService {
 
-    private MovieDao movieDao;
-    private String path;
+    private final MovieDao movieDao;
 
     public MovieService(String path) {
-        this.path = path;
         movieDao = new MovieDao(path);
     }
 

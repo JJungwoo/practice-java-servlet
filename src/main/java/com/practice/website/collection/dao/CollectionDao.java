@@ -27,20 +27,18 @@ public class CollectionDao {
             conn = DBUtil.dbConnect(path);
             String sql = createQueryForFindById();
             pstmt = conn.prepareStatement(sql);
-//            setValuesForFindById(id, pstmt);
+            setValuesForFindById(id, pstmt);
 
             rs = pstmt.executeQuery();
-            System.out.println("request sql: " + sql +", id: " + id);
+
             if (rs.next()) {
-                System.out.println("find!");
                 collection = Collection.builder()
-                        .id(rs.getLong(1))
-                        .name(rs.getString(2))
-                        .desc(rs.getString(3))
-                        .movieList(rs.getString(4))
+                        .id(rs.getLong("coll_no"))
+                        .name(rs.getString("name"))
+                        .desc(rs.getString("description"))
+                        .movieList(rs.getString("movie_list"))
                         .build();
             }
-            System.out.println(collection.getId() + collection.getName());
         } finally {
             DBUtil.dbClose(conn, pstmt, rs);
         }
@@ -53,7 +51,6 @@ public class CollectionDao {
     }
 
     private String createQueryForFindById() {
-//        return "SELECT * FROM MOVIE_COLLECTIONS WHERE COLL_NO = ?";
-        return "SELECT * FROM MOVIE_COLLECTIONS WHERE coll_no = 17";
+        return "SELECT * FROM MOVIE_COLLECTIONS WHERE COLL_NO = ?";
     }
 }

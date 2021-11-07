@@ -43,18 +43,16 @@ public class MovieController extends HttpServlet {
             return;
         }
 
-        Long moveListId = Long.valueOf(tokens[1]);
+        Long moveId = Long.valueOf(tokens[1]);
         Movie movie = null;
 
         try {
-            movie = movieService.findMovieById(moveListId);
+            movie = movieService.findMovieById(moveId);
         } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_NO_CONTENT);
             e.printStackTrace();
             logger.error(e.getMessage());
         }
-
-        System.out.println("doGetMovieList");
 
         request.setAttribute("movie", movie);
 

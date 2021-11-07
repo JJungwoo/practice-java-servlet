@@ -3,7 +3,6 @@ package com.practice.website.collection.controller;
 import com.practice.website.collection.service.CollectionService;
 import com.practice.website.movie.controller.MovieController;
 import com.practice.website.movie.domain.Movie;
-import com.practice.website.movie.service.MovieService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "CollectionController", value = "/col")
+@WebServlet(name = "CollectionController", value = "/collection")
 public class CollectionController extends HttpServlet {
 
     private Logger logger;
@@ -29,18 +28,37 @@ public class CollectionController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Movie> movieList = null;
-        try {
-            movieList = collectionService.findByIdReturnMovieList(17L);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (Movie m : movieList) {
-            System.out.println(m.getTitle());
-        }
+
     }
 
+    // GET /collection/{id}
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String pathInfo = request.getPathInfo();
+
+        if (pathInfo == null) {
+            return;
+        }
+
+        String[] tokens = pathInfo.split("/");
+        if (tokens.length != 2) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        Long collectionId = Long.valueOf(tokens[1]);
+        List<Movie> movieList = null;
+
+        try {
+            movieList = collectionService.findByIdReturnMovieList(collectionId);
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_NO_CONTENT);
+            e.printStackTrace();
+            logger.error(e.getMessage());
+        }
+
+        request.setAttribute("movieList", movieList);
+
+        request.getRequestDispatcher("/").forward(request, response);
     }
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class MovieDao {
 
-    String path;
+    private String path;
 
     public MovieDao(String path) {
         this.path = path;
