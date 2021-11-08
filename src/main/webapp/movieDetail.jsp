@@ -22,15 +22,34 @@
     <input type="hidden" value="${movie.id}">
     <p>${movie.openDate} 개봉 / ${movie.genre} / ${movie.nation}</p>
     <p>원제 ${movie.originName} / 상영시간 ${movie.runTime}분</p>
-<%--    <h3>평균별점 ⭐️ ${movie.average} (${movie.ratingCount}명 평가)</h3>--%>
+    <h3>평균별점 ⭐️ ${avgScore} (${ratingCount}명 평가)</h3>
 </div>
 <div>
+
+<%--    <%--%>
+<%--        String user = Optional.ofNullable(session.getAttribute("userid")).map(Object::toString).orElse(null);--%>
+<%--        if (user == null) {--%>
+<%--    %>--%>
+<%--        &lt;%&ndash; 비회원일 경우 &ndash;%&gt;--%>
+
+<%--    <%--%>
+<%--    } else {--%>
+<%--    %>--%>
+<%--        &lt;%&ndash; 회원일 경우 &ndash;%&gt;--%>
+
+<%--        &lt;%&ndash; 별점 등록한 경우 &ndash;%&gt;--%>
+<%--    <%--%>
+<%--        }--%>
+<%--    %>--%>
+
+
 <%--    <h3>별점 입력</h3>--%>
 <%--    <form action="${contextPath}/rating/form" method="post">--%>
 <%--        <input type="hidden" name="movieid" value="${movie.movieNo}">--%>
 <%--        <input type="hidden" name="name" value="${movie.name}">--%>
 <%--        <input type="submit" value="별점 평가하기">--%>
 <%--    </form>--%>
+
 </div>
 <div>
     <h3>상세 정보</h3>

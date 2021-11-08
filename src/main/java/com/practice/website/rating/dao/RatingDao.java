@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RatingDao {
 
@@ -52,7 +54,45 @@ public class RatingDao {
     }
 
     private String createQueryForFindByUidANDMid() {
-        return "select * from RATING where user_id = ? and movie_id = ?;";
+        return "select * from RATING where user_id = ? and movie_id = ?";
+    }
+
+    public List<Rating> selectAllByMid(Long mid) throws SQLException {
+        List<Rating> ratingList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBUtil.dbConnect(path);
+            String sql = createQueryForSelectAllByMid();
+            pstmt = conn.prepareStatement(sql);
+            setValuesForSelectAllByMid(mid, pstmt);
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                ratingList.add(Rating.builder()
+                        .id(rs.getLong("Rating_SEQ"))
+                        .uid(rs.getLong("user_id"))
+                        .mid(rs.getLong("movie_id"))
+                        .score(rs.getLong("rscore"))
+                        .comment(rs.getString("rcomment"))
+                        .build());
+            }
+        } finally {
+            DBUtil.dbClose(conn, pstmt, rs);
+        }
+
+        return ratingList;
+    }
+
+    private void setValuesForSelectAllByMid( Long mid, PreparedStatement pstmt) throws SQLException {
+        pstmt.setLong(1, mid);
+    }
+
+    private String createQueryForSelectAllByMid() {
+        return "select * from RATING where movie_id = ?";
     }
 
 }
