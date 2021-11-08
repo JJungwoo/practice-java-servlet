@@ -59,6 +59,6 @@ public class CollectionController extends HttpServlet {
 
         request.setAttribute("movieList", movieList);
 
-        request.getRequestDispatcher("/").forward(request, response);
+        request.getRequestDispatcher("/movieListView.jsp").forward(request, response);
     }
 }

@@ -9,6 +9,63 @@
     <meta charset="UTF-8">
     <title>MovieRating</title>
     <link href="${contextPath}/index.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script>
+
+        function LoadingWithMask(gif) {
+            //화면의 높이와 너비를 구합니다.
+            var maskHeight = $(document).height();
+            var maskWidth  = window.document.body.clientWidth;
+
+            //화면에 출력할 마스크를 설정해줍니다.
+            var mask       = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
+            var loadingImg = '';
+
+            loadingImg += " <img src='"+ gif + "' style='position: absolute; display: block; margin: 0px auto;'/>";
+
+            //화면에 레이어 추가
+            $('body')
+                .append(mask)
+
+            //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
+            $('#mask').css({
+                'width' : maskWidth,
+                'height': maskHeight,
+                'opacity' : '0.3'
+            });
+
+            //마스크 표시
+            $('#mask').show();
+
+            //로딩중 이미지 표시
+            $('#loadingImg').append(loadingImg);
+            $('#loadingImg').show();
+        }
+
+        function closeLoadingWithMask() {
+            $('#mask, #loadingImg').hide();
+            $('#mask, #loadingImg').empty();
+        }
+
+        $(document).ready(function() {
+            LoadingWithMask('${contextPath}/src/main/webapp/resources/images/loadingImg.gif');
+            $.ajax({
+                type:'GET',
+                url:"http://localhost:9999/collection/19",
+                dataType:'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    // alert('success:'+data);
+                    $('#movieList').html(data);
+                },
+                error: function(request,status,error){
+                    $('#movieList').html(request.responseText);
+                    // alert('fail code:'+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); //에러 상태에 대한 세부사항 출력
+                }
+            });
+            closeLoadingWithMask();
+        });
+    </script>
 </head>
 <body>
 
@@ -31,37 +88,9 @@
                                     <div class="main-inner-section-divdivdivdivdiv-movie">
                                         <ul class="main-inner-section-divdivdiv-ul-movie">
 
-                                            <!-- 영화 목록 나열 -->
-                                            <c:set var="cnt" value="0" />
-                                            <c:forEach items="${movieList}" var="movie">
-                                                <c:set var="loopCnt" value="${cnt + 1}" />
-                                                <li class="main-inner-section-divdivdiv-ul-li-movie">
-                                                    <a title="${movie.title}" href="/movie/${movie.id}">
+                                            <div id="movieList">
 
-                                                        <div class="main-inner-section-divdivdiv-ul-li-div1-movie">
-                                                            <div class="main-inner-section-divdivdiv-ul-li-div1-div1-movie">
-                                                                <img src="${movie.posterUrl}"
-                                                                     class="main-inner-section-divdivdiv-ul-li-div1-div1-image-movie ezcopuc1">
-                                                            </div>
-                                                            <div class="main-inner-section-divdivdiv-ul-li-div1-div2-movie">${loopCnt}</div>
-                                                        </div>
-
-                                                        <div class="main-inner-section-divdivdiv-ul-li-div2-movie">
-
-                                                            <div class="main-inner-section-divdivdiv-ul-li-div2-title-movie">${movie.title}</div>
-                                                            <div class="main-inner-section-divdivdiv-ul-li-div2-country-movie">${movie.openDate} ・ ${movie.nation}</div>
-                                                            <div class="main-inner-section-divdivdiv-ul-li-div2-rating-movie">
-                                                                <span>평균</span>
-                                                                <span>3.1</span>
-                                                            </div>
-                                                            <!-- <div class="css-hyqnp8-StyledContentBoxOfficeStats ebeya3l13">예매율 85% ・ 누적 관객 30만명</div>-->
-
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <c:set var="cnt" value="${loopCnt}" />
-                                            </c:forEach>
-
+                                            </div>
 
                                         </ul>
                                     </div>
