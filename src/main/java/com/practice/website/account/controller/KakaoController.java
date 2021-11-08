@@ -64,8 +64,6 @@ public class KakaoController extends HttpServlet {
      */
     public void getIdKakaoAuthExcute(HttpServletRequest request, HttpServletResponse response, String access_token) throws ServletException, IOException {
 
-        System.out.println("getIdkakaoAuthExcute");
-
         String endpoint="https://kapi.kakao.com/v2/user/me";
         URL url = new URL(endpoint);
 

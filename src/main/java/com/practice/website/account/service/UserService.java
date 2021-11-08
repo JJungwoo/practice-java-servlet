@@ -2,7 +2,6 @@ package com.practice.website.account.service;
 
 import com.practice.website.account.dao.UserDao;
 import com.practice.website.account.domain.User;
-import com.practice.website.account.exception.NotFoundEmailException;
 
 import java.sql.SQLException;
 
@@ -16,7 +15,7 @@ public class UserService {
         userDao = new UserDao(path);
     }
 
-    public User findByEmail(String email) throws Exception{
+    public User findByEmail(String email) throws Exception {
         User user = null;
         try {
             user = userDao.findByEmail(email);

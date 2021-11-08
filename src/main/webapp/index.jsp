@@ -56,10 +56,25 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     // alert('success:'+data);
-                    $('#movieList').html(data);
+                    $('#movieList1').html(data);
                 },
                 error: function(request,status,error){
-                    $('#movieList').html(request.responseText);
+                    $('#movieList1').html(request.responseText);
+                    // alert('fail code:'+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); //에러 상태에 대한 세부사항 출력
+                }
+            });
+
+            $.ajax({
+                type:'GET',
+                url:"http://localhost:9999/collection/25",
+                dataType:'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    // alert('success:'+data);
+                    $('#movieList2').html(data);
+                },
+                error: function(request,status,error){
+                    $('#movieList2').html(request.responseText);
                     // alert('fail code:'+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); //에러 상태에 대한 세부사항 출력
                 }
             });
@@ -88,7 +103,7 @@
                                     <div class="main-inner-section-divdivdivdivdiv-movie">
                                         <ul class="main-inner-section-divdivdiv-ul-movie">
 
-                                            <div id="movieList">
+                                            <div id="movieList1">
 
                                             </div>
 
@@ -118,7 +133,9 @@
                                         <ul class="main-inner-section-divdivdiv-ul-movie">
 
                                             <!-- 영화 목록 나열 -->
+                                            <div id="movieList2">
 
+                                            </div>
 
                                         </ul>
                                     </div>

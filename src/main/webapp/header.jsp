@@ -51,7 +51,7 @@
                 <%
                 } else {
                 %>
-                <h2 style="color: black"><%=user%>님 환영합니다.</h2>
+                <h2 class="main-h2"><%=user%>님 환영합니다.</h2>
 
                 <li class="main-signup-li">
                     <a href="/logout" class="main-signup-button" methods="get">로그아웃</a>

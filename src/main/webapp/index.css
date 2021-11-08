@@ -39,6 +39,13 @@ div {
     flex-shrink: 0;
 }
 
+.main-h2 {
+    color: black;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
 .main-login-button {
     cursor: pointer;
     background: transparent;
