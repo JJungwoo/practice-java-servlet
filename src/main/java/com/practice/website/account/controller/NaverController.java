@@ -1,6 +1,8 @@
 package com.practice.website.account.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.website.account.domain.User;
+import com.practice.website.account.service.UserService;
 import com.practice.website.util.FileIOUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,12 +28,15 @@ public class NaverController extends HttpServlet {
     private static Logger logger;
     private static final String applicationPropertiesFilePath = "src/main/resources/application.properties";
     private String naverClientId;
+    private UserService userService;
 
     @Override
     public void init() throws ServletException {
         super.init();
 
         logger = LogManager.getLogger(NaverController .class);
+
+        userService = new UserService(getServletContext().getRealPath("."));
 
         String path = getServletContext().getRealPath(".").replaceAll("\\\\", "/");
 
@@ -70,12 +75,32 @@ public class NaverController extends HttpServlet {
         Map<String, Object> map = objectMapper.readValue(responseBody.toString(), Map.class);
         Map<String, Object> respMap = (Map<String, Object>) map.get("response");
         String userid = String.valueOf(respMap.get("nickname"));
+        String email = String.valueOf(respMap.get("email"));
 
-        logger.info("naver oauth api response userid {} ", userid);
+        logger.info("naver oauth api response userid {}, email {} ", userid, email);
+
+        User user = null;
+        Long id = null;
+
+        try {
+            user = userService.findByEmail(email);
+            if (user == null) {
+                userService.insert(User.builder()
+                        .name(userid)
+                        .email(email)
+                        .build());
+                id = userService.findByEmail(email).getNid();
+            } else {
+                id = user.getNid();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         HttpSession session = request.getSession(true);
         if (session.getAttribute("userid") == null) {
             session.setAttribute("userid", userid);
+            session.setAttribute("id", id);
             session.setAttribute("oauth", "naver");
             session.setAttribute("accessToken", access_token);
             session.setMaxInactiveInterval(60 * 30);    // 30분

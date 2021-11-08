@@ -1,6 +1,8 @@
 package com.practice.website.account.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.website.account.domain.User;
+import com.practice.website.account.service.UserService;
 import com.practice.website.util.FileIOUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,12 +25,15 @@ public class KakaoController extends HttpServlet {
     private static Logger logger;
     static final private String applicationPropertiesFilePath = "src/main/resources/application.properties";
     private String kakaoClientId;
+    private UserService userService;
 
     @Override
     public void init() throws ServletException {
         super.init();
 
         logger = LogManager.getLogger(KakaoController.class);
+
+        userService = new UserService(getServletContext().getRealPath("."));
 
         String path = getServletContext().getRealPath(".").replaceAll("\\\\", "/");
 
@@ -93,13 +98,35 @@ public class KakaoController extends HttpServlet {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> map = objectMapper.readValue(sb.toString(), Map.class);
         Map<String, Object> propertiesMap = (Map<String, Object>) map.get("properties");
+        Map<String, Object> kakaoAccountMap = (Map<String, Object>) map.get("kakao_account");
         String userid = String.valueOf(propertiesMap.get("nickname"));
+        String email = String.valueOf(kakaoAccountMap.get("email"));
 
         logger.info("kakao oauth api response userid {} ", userid);
+
+        User user = null;
+        Long id = null;
+
+        try {
+            user = userService.findByEmail(email);
+            if (user == null) {
+                userService.insert(User.builder()
+                        .name(userid)
+                        .email(email)
+                        .build());
+                id = userService.findByEmail(email).getNid();
+            } else {
+                id = user.getNid();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         HttpSession session = request.getSession(true);
         if (session.getAttribute("userid") == null) {
             session.setAttribute("userid", userid);
+            session.setAttribute("id", id);
             session.setAttribute("oauth", "kakao");
             session.setAttribute("accessToken", access_token);
             session.setMaxInactiveInterval(60 * 30);    // 30분

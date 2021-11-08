@@ -43,6 +43,7 @@ public class LoginController extends HttpServlet {
 
             HttpSession session = request.getSession(true);
             if (session.getAttribute("userid") == null) {
+                session.setAttribute("id", user.getNid());
                 session.setAttribute("userid", user.getName());
                 session.setAttribute("oauth", "self");
                 session.setAttribute("accessToken", "1");
