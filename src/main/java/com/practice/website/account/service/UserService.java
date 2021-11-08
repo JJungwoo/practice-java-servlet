@@ -20,9 +20,6 @@ public class UserService {
         User user = null;
         try {
             user = userDao.findByEmail(email);
-            if (user == null) {
-                throw new NotFoundEmailException("등록되지 않은 이메일입니다.");
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

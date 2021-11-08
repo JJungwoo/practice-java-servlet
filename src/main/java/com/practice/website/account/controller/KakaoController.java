@@ -98,11 +98,10 @@ public class KakaoController extends HttpServlet {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> map = objectMapper.readValue(sb.toString(), Map.class);
         Map<String, Object> propertiesMap = (Map<String, Object>) map.get("properties");
-        Map<String, Object> kakaoAccountMap = (Map<String, Object>) map.get("kakao_account");
         String userid = String.valueOf(propertiesMap.get("nickname"));
-        String email = String.valueOf(kakaoAccountMap.get("email"));
+        String email = String.valueOf(map.get("id"));
 
-        logger.info("kakao oauth api response userid {} ", userid);
+        logger.info("kakao oauth api response userid {}, email {} ", userid, email);
 
         User user = null;
         Long id = null;
@@ -115,8 +114,10 @@ public class KakaoController extends HttpServlet {
                         .email(email)
                         .build());
                 id = userService.findByEmail(email).getNid();
+                logger.info("kakao 신규 가입 성공 {} ", id);
             } else {
                 id = user.getNid();
+                logger.info("kakao 기존 유저 {} ", id);
             }
 
         } catch (Exception e) {
